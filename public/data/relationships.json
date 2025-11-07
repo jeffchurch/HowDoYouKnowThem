@@ -176,5 +176,14 @@
       "Tom Anderson",
       "Brandon Foster"
     ]
+  },
+  {
+    "name": "Peter",
+    "relationship": "Friend",
+    "note": "Friend",
+    "image": "",
+    "connections": [
+      "Jeff Church"
+    ]
   }
 ]

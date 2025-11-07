@@ -1,56 +1,25 @@
-import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
-import RelationshipTree from './components/RelationshipTree'
+import ViewPage from './pages/ViewPage'
+import EditorPage from './pages/EditorPage'
 
 function App() {
-  const [people, setPeople] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    // Load the JSON data
-    fetch('/data/relationships.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to load data')
-        }
-        return response.json()
-      })
-      .then(data => {
-        setPeople(data)
-        setLoading(false)
-      })
-      .catch(err => {
-        setError(err.message)
-        setLoading(false)
-      })
-  }, [])
-
-  if (loading) {
-    return (
-      <div className="app">
-        <div className="loading">Loading...</div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="app">
-        <div className="error">Error: {error}</div>
-      </div>
-    )
-  }
-
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>How Do You Know Them?</h1>
-      </header>
-      <div className="tree-container">
-        <RelationshipTree people={people} />
+    <Router>
+      <div className="app">
+        <header className="app-header">
+          <h1>How Do You Know Them?</h1>
+          <nav className="app-nav">
+            <Link to="/" className="nav-link">View</Link>
+            <Link to="/edit" className="nav-link">Edit</Link>
+          </nav>
+        </header>
+        <Routes>
+          <Route path="/" element={<ViewPage />} />
+          <Route path="/edit" element={<EditorPage />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   )
 }
 
