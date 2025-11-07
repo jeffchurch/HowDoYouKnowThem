@@ -19,6 +19,7 @@ console.log('Network interfaces:', addresses);
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/HowDoYouKnowThem/',
   server: {
     host: '0.0.0.0',
     port: 5173,
