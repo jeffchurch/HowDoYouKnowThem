@@ -1,0 +1,19 @@
+.person-node {
+  cursor: pointer;
+  user-select: none;
+}
+
+.person-node:hover .person-avatar {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.person-node.selected .person-avatar {
+  transform: scale(1.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border-width: 4px;
+}
+
+.person-node:active .person-avatar {
+  transform: scale(0.95);
+}

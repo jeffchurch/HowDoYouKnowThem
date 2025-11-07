@@ -1,0 +1,49 @@
+[
+  {
+    "name": "Nicki Slettevold",
+    "relationship": "Family",
+    "note": "Cousin",
+    "image": "nicki.jpg",
+    "connections": [
+      "Jeff Church",
+      "Mitch Deonte"
+    ]
+  },
+  {
+    "name": "Mitch Deonte",
+    "relationship": "Friend",
+    "note": "Nicki's partner",
+    "image": "mitch.jpg",
+    "connections": [
+      "Nicki Slettevold"
+    ]
+  },
+  {
+    "name": "Sarah Johnson",
+    "relationship": "Friend",
+    "note": "College friend",
+    "image": "",
+    "connections": [
+      "Jeff Church"
+    ]
+  },
+  {
+    "name": "Mike Chen",
+    "relationship": "Work",
+    "note": "Colleague",
+    "image": "",
+    "connections": [
+      "Jeff Church"
+    ]
+  },
+  {
+    "name": "Emily Rodriguez",
+    "relationship": "School",
+    "note": "High school friend",
+    "image": "",
+    "connections": [
+      "Jeff Church",
+      "Sarah Johnson"
+    ]
+  }
+]
