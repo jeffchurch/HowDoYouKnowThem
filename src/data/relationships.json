@@ -341,5 +341,14 @@
     "connections": [
       "Jeff Church"
     ]
+  },
+  {
+    "name": "Kody Williams",
+    "relationship": "Friend",
+    "note": "",
+    "image": "kody.png",
+    "connections": [
+      "Jace Godfrey"
+    ]
   }
 ]
