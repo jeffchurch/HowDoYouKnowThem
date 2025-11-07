@@ -30,7 +30,7 @@ const PersonCard = ({ person, isSelected, onClick }) => {
         style={{ background: getRelationshipColor(person.relationship) }}
       >
         {person.image ? (
-          <img src={`/images/${person.image}`} alt={person.name} />
+          <img src={`/HowDoYouKnowThem/images/${person.image}`} alt={person.name} />
         ) : (
           <span className="person-initial">{getInitial(person.name)}</span>
         )}
