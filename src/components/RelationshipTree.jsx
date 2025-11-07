@@ -54,24 +54,63 @@ const RelationshipTree = ({ people }) => {
       // Each level contains people who are exactly N connections away from root
       let currentLevelIndex = 0
       
+      // First, build all levels to identify which nodes have connections to next level
+      const nextLevelConnections = new Map()
+      
       while (currentLevelIndex < levels.length) {
         const currentLevelPeople = levels[currentLevelIndex]
         const nextLevelPeople = []
         
+        // First pass: collect all potential connections for this level
         currentLevelPeople.forEach(person => {
-          // Find all connections (bidirectional) that haven't been assigned a level yet
           const connections = connectionMap.get(person.name) || new Set()
+          const validConnections = []
           
           connections.forEach(connName => {
             const connectedPerson = people.find(p => p.name === connName)
-            
-            // Only add if not already assigned to a level
             if (connectedPerson && !nodeLevel.has(connName)) {
+              validConnections.push(connectedPerson)
               nextLevelPeople.push(connectedPerson)
               nodeLevel.set(connName, currentLevelIndex + 1)
             }
           })
+          
+          // Store which connections from this person lead to the next level
+          if (validConnections.length > 0) {
+            nextLevelConnections.set(person.name, validConnections.map(p => p.name))
+          }
         })
+        
+        // Sort current level people to alternate between nodes with and without next level connections
+        if (currentLevelIndex > 0) {  // Don't sort root level
+          const withConnections = []
+          const withoutConnections = []
+          
+          // Check actual next level connections instead of all connections
+          currentLevelPeople.forEach(person => {
+            if (nextLevelConnections.has(person.name)) {
+              withConnections.push(person)
+            } else {
+              withoutConnections.push(person)
+            }
+          })
+          
+          // Interleave people with and without next level connections
+          const sortedLevel = []
+          const maxLength = Math.max(withConnections.length, withoutConnections.length)
+          
+          for (let i = 0; i < maxLength; i++) {
+            if (i < withConnections.length) {
+              sortedLevel.push(withConnections[i])
+            }
+            if (i < withoutConnections.length) {
+              sortedLevel.push(withoutConnections[i])
+            }
+          }
+          
+          // Update the current level with sorted people
+          levels[currentLevelIndex] = sortedLevel
+        }
         
         // Remove duplicates from next level (in case multiple people connect to same person)
         const uniqueNextLevel = Array.from(new Set(nextLevelPeople.map(p => p.name)))
