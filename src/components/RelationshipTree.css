@@ -20,25 +20,32 @@
   min-width: 100%;
   min-height: 100%;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0; /* Keep this lower than person nodes */
   overflow: visible;
   -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
 }
 
 .connection-line {
-  stroke: rgba(255, 255, 255, 0.3);
   stroke-linecap: round;
   transition: all 0.3s ease;
 }
 
+.family-connection {
+  stroke: #f87171; /* Red for family */
+}
+
+.friend-connection {
+  stroke: #60a5fa; /* Blue for friends */
+}
+
 .person-node {
   position: absolute;
-  z-index: 2;
+  z-index: 5; /* Increased to ensure it's above connection lines */
   transition: all 0.3s ease;
 }
 
 .center-person {
-  z-index: 3;
+  z-index: 4; /* Ensure center person is above other nodes */
 }
 
 .person-avatar {
@@ -54,6 +61,7 @@
   border: 3px solid white;
   overflow: hidden;
   transition: all 0.3s ease;
+  z-index: 5;
 }
 
 .center-avatar {

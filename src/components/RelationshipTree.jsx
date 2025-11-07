@@ -291,7 +291,11 @@ const RelationshipTree = ({ people }) => {
                 y1={person.y}
                 x2={connectedPerson.x}
                 y2={connectedPerson.y}
-                className="connection-line"
+                className={`connection-line ${
+                  person.relationship === 'Family' && connectedPerson.relationship === 'Family'
+                    ? 'family-connection' 
+                    : 'friend-connection'
+                }`}
                 strokeWidth={
                   (selectedPerson?.name === person.name || selectedPerson?.name === connectionName) ? "3" : "2"
                 }
