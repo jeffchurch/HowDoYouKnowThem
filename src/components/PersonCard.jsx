@@ -36,6 +36,7 @@ const PersonCard = ({ person, isSelected, onClick }) => {
         )}
       </div>
       <div className="person-name">{person.name}</div>
+      <div className="person-subtitle">{person.relationship} - {person.note}</div>
     </div>
   )
 }

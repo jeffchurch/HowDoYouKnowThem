@@ -17,3 +17,11 @@
 .person-node:active .person-avatar {
   transform: scale(0.95);
 }
+
+.person-subtitle {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 2px;
+  text-align: center;
+  font-weight: 400;
+}
