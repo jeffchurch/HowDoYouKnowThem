@@ -220,20 +220,30 @@ const RelationshipTree = ({ people }) => {
           const centerX = container.clientWidth / 2
           const centerY = container.clientHeight / 2
 
-          // Draw lines based on the connections array
-          if (!person.connections || person.connections.length === 0) return null
+          // Create a Set of all connections for this person
+          const allConnections = new Set(person.connections || [])
+          
+          // Also find any people who have this person in their connections
+          positions.forEach(p => {
+            if (p.connections && p.connections.includes(person.name)) {
+              allConnections.add(p.name)
+            }
+          })
+          
+          if (allConnections.size === 0) return null
 
-          return person.connections.map((connectionName, connIndex) => {
+          // Draw lines for all connections
+          return Array.from(allConnections).map((connectionName, connIndex) => {
             // Find the connected person in positions
             const connectedPerson = positions.find(p => p.name === connectionName)
             if (!connectedPerson) return null
 
-            // Only draw lines between different levels (parent-child), not same level (siblings)
-            if (person.y === connectedPerson.y) return null
-
             // Only draw each line once (from person with lower index to higher index)
             const connectedIndex = positions.findIndex(p => p.name === connectionName)
             if (connectedIndex < index) return null
+            
+            // Skip if both people are on the same row (same y-coordinate)
+            if (person.y === connectedPerson.y) return null
 
             return (
               <line
