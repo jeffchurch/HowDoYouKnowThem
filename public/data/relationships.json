@@ -33,7 +33,10 @@
     "note": "Colleague",
     "image": "",
     "connections": [
-      "Jeff Church"
+      "Jeff Church",
+      "David Martinez",
+      "Jessica Lee",
+      "Kevin Patel"
     ]
   },
   {
@@ -43,7 +46,117 @@
     "image": "",
     "connections": [
       "Jeff Church",
-      "Sarah Johnson"
+      "Sarah Johnson",
+      "Amanda Wright",
+      "Olivia Brown"
+    ]
+  },
+  {
+    "name": "David Martinez",
+    "relationship": "Work",
+    "note": "Team lead",
+    "image": "",
+    "connections": [
+      "Jeff Church",
+      "Mike Chen",
+      "Jessica Lee"
+    ]
+  },
+  {
+    "name": "Lisa Thompson",
+    "relationship": "Friend",
+    "note": "Gym buddy",
+    "image": "",
+    "connections": [
+      "Jeff Church",
+      "Rachel Kim"
+    ]
+  },
+  {
+    "name": "Rachel Kim",
+    "relationship": "Friend",
+    "note": "Neighbor",
+    "image": "",
+    "connections": [
+      "Lisa Thompson",
+      "Tom Anderson"
+    ]
+  },
+  {
+    "name": "Tom Anderson",
+    "relationship": "School",
+    "note": "College roommate",
+    "image": "",
+    "connections": [
+      "Jeff Church",
+      "Rachel Kim",
+      "Sarah Johnson",
+      "Olivia Brown",
+      "Chris Murphy"
+    ]
+  },
+  {
+    "name": "Jessica Lee",
+    "relationship": "Work",
+    "note": "Project manager",
+    "image": "",
+    "connections": [
+      "Mike Chen",
+      "David Martinez",
+      "Kevin Patel"
+    ]
+  },
+  {
+    "name": "Brandon Foster",
+    "relationship": "Family",
+    "note": "Brother-in-law",
+    "image": "",
+    "connections": [
+      "Jeff Church",
+      "Nicki Slettevold",
+      "Chris Murphy"
+    ]
+  },
+  {
+    "name": "Amanda Wright",
+    "relationship": "Friend",
+    "note": "Book club member",
+    "image": "",
+    "connections": [
+      "Sarah Johnson",
+      "Emily Rodriguez"
+    ]
+  },
+  {
+    "name": "Kevin Patel",
+    "relationship": "Work",
+    "note": "Senior developer",
+    "image": "",
+    "connections": [
+      "Jeff Church",
+      "Mike Chen",
+      "Jessica Lee"
+    ]
+  },
+  {
+    "name": "Olivia Brown",
+    "relationship": "School",
+    "note": "Study group partner",
+    "image": "",
+    "connections": [
+      "Emily Rodriguez",
+      "Tom Anderson"
+    ]
+  },
+  {
+    "name": "Chris Murphy",
+    "relationship": "Friend",
+    "note": "Gaming friend",
+    "image": "",
+    "connections": [
+      "Jeff Church",
+      "Tom Anderson",
+      "Brandon Foster"
     ]
   }
 ]

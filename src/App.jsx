@@ -47,7 +47,9 @@ function App() {
       <header className="app-header">
         <h1>How Do You Know Them?</h1>
       </header>
-      <RelationshipTree people={people} centerPerson="Jeff Church" />
+      <div className="tree-container">
+        <RelationshipTree people={people} centerPerson="Jeff Church" />
+      </div>
     </div>
   )
 }

@@ -36,7 +36,6 @@ const PersonCard = ({ person, isSelected, onClick }) => {
         )}
       </div>
       <div className="person-name">{person.name}</div>
-      <div className="person-label">{person.relationship}</div>
     </div>
   )
 }
