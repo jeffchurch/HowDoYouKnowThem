@@ -3,18 +3,9 @@
     "name": "Jeff Church",
     "relationship": "Self",
     "note": "Me",
-    "image": "",
+    "image": "jeff.png",
     "connections": [
-      "Nicki Slettevold",
-      "Sarah Johnson",
-      "Mike Chen",
-      "Emily Rodriguez",
-      "David Martinez",
-      "Lisa Thompson",
-      "Tom Anderson",
-      "Brandon Foster",
-      "Kevin Patel",
-      "Chris Murphy"
+
     ]
   },
   {
@@ -31,160 +22,252 @@
     "name": "Mitch Deonte",
     "relationship": "Friend",
     "note": "Nicki's partner",
-    "image": "mitch.jpg",
+    "image": "",
     "connections": [
       "Nicki Slettevold"
     ]
   },
   {
-    "name": "Sarah Johnson",
+    "name": "Bryan Church",
+    "relationship": "Family",
+    "note": "Brother",
+    "image": "bryan.png",
+    "connections": [
+      "Jeff Church"
+    ]
+  },
+  {
+    "name": "Kayla Vanderputten",
+    "relationship": "Family",
+    "note": "Sister",
+    "image": "kayla.png",
+    "connections": [
+      "Jeff Church"
+    ]
+  },
+  {
+    "name": "Mike Vanderputten",
+    "relationship": "Family",
+    "note": "Brother-in-law",
+    "image": "mikev.png",
+    "connections": [
+      "Kayla Vanderputten"
+    ]
+  },
+  {
+    "name": "Owen Ausen",
     "relationship": "Friend",
-    "note": "College friend",
+    "note": "Leg-breaker",
+    "image": "owen.png",
+    "connections": [
+      "Jeff Church"
+    ]
+  },
+  {
+    "name": "Jacob Covey",
+    "relationship": "Friend",
+    "note": "",
+    "image": "jacob.png",
+    "connections": [
+      "Jeff Church"
+    ]
+  },
+  {
+    "name": "Sean Edwards",
+    "relationship": "Family",
+    "note": "Cousin",
     "image": "",
     "connections": [
       "Jeff Church"
     ]
   },
   {
-    "name": "Mike Chen",
-    "relationship": "Work",
-    "note": "Colleague",
-    "image": "",
-    "connections": [
-      "Jeff Church",
-      "David Martinez",
-      "Jessica Lee",
-      "Kevin Patel"
-    ]
-  },
-  {
-    "name": "Emily Rodriguez",
-    "relationship": "School",
-    "note": "High school friend",
-    "image": "",
-    "connections": [
-      "Jeff Church",
-      "Sarah Johnson",
-      "Amanda Wright",
-      "Olivia Brown"
-    ]
-  },
-  {
-    "name": "David Martinez",
-    "relationship": "Work",
-    "note": "Team lead",
-    "image": "",
-    "connections": [
-      "Jeff Church",
-      "Mike Chen",
-      "Jessica Lee"
-    ]
-  },
-  {
-    "name": "Lisa Thompson",
-    "relationship": "Friend",
-    "note": "Gym buddy",
-    "image": "",
-    "connections": [
-      "Jeff Church",
-      "Rachel Kim"
-    ]
-  },
-  {
-    "name": "Rachel Kim",
-    "relationship": "Friend",
-    "note": "Neighbor",
-    "image": "",
-    "connections": [
-      "Lisa Thompson",
-      "Tom Anderson"
-    ]
-  },
-  {
-    "name": "Tom Anderson",
-    "relationship": "School",
-    "note": "College roommate",
-    "image": "",
-    "connections": [
-      "Jeff Church",
-      "Rachel Kim",
-      "Sarah Johnson",
-      "Olivia Brown",
-      "Chris Murphy"
-    ]
-  },
-  {
-    "name": "Jessica Lee",
-    "relationship": "Work",
-    "note": "Project manager",
-    "image": "",
-    "connections": [
-      "Mike Chen",
-      "David Martinez",
-      "Kevin Patel"
-    ]
-  },
-  {
-    "name": "Brandon Foster",
+    "name": "Gene Church",
     "relationship": "Family",
-    "note": "Brother-in-law",
-    "image": "",
+    "note": "Cousin",
+    "image": "gene.png",
     "connections": [
-      "Jeff Church",
-      "Nicki Slettevold",
-      "Chris Murphy"
+      "Jeff Church"
     ]
   },
   {
-    "name": "Amanda Wright",
+    "name": "Max Jackson",
     "relationship": "Friend",
-    "note": "Book club member",
-    "image": "",
+    "note": "",
+    "image": "max.png",
     "connections": [
-      "Sarah Johnson",
-      "Emily Rodriguez"
+      "Bryan Church"
     ]
   },
   {
-    "name": "Kevin Patel",
-    "relationship": "Work",
-    "note": "Senior developer",
-    "image": "",
-    "connections": [
-      "Jeff Church",
-      "Mike Chen",
-      "Jessica Lee"
-    ]
-  },
-  {
-    "name": "Olivia Brown",
-    "relationship": "School",
-    "note": "Study group partner",
-    "image": "",
-    "connections": [
-      "Emily Rodriguez",
-      "Tom Anderson"
-    ]
-  },
-  {
-    "name": "Chris Murphy",
+    "name": "Cole J",
     "relationship": "Friend",
-    "note": "Gaming friend",
+    "note": "Owen's Brother",
     "image": "",
     "connections": [
-      "Jeff Church",
-      "Tom Anderson",
-      "Brandon Foster"
+      "Owen Ausen"
     ]
   },
   {
-    "name": "Peter",
+    "name": "Brenden Houston",
     "relationship": "Friend",
-    "note": "Friend",
+    "note": "",
     "image": "",
     "connections": [
-      "Jeff Church",
+      "Cole J"
+    ]
+  },
+  {
+    "name": "Julie",
+    "relationship": "Friend",
+    "note": "",
+    "image": "",
+    "connections": [
+      "Brenden Houston"
+    ]
+  },
+  {
+    "name": "Halie",
+    "relationship": "Friend",
+    "note": "",
+    "image": "",
+    "connections": [
+      "Julie"
+    ]
+  },
+  {
+    "name": "Michael Sessions",
+    "relationship": "Friend",
+    "note": "",
+    "image": "sessions.png",
+    "connections": [
+      "Bryan Church"
+    ]
+  },
+  {
+    "name": "Beau Holmes",
+    "relationship": "Friend",
+    "note": "",
+    "image": "beau.png",
+    "connections": [
+      "Jeff Church"
+    ]
+  },
+  {
+    "name": "Peter Burnunit",
+    "relationship": "Friend",
+    "note": "",
+    "image": "peter.png",
+    "connections": [
+      "Beau Holmes"
+    ]
+  },
+  {
+    "name": "Lauren Hobday",
+    "relationship": "Friend",
+    "note": "",
+    "image": "laurenh.png",
+    "connections": [
+      "Michael Sessions"
+    ]
+  },
+  {
+    "name": "Tucker",
+    "relationship": "Friend",
+    "note": "",
+    "image": "",
+    "connections": [
+      "Mike Vanderputten"
+    ]
+  },
+  {
+    "name": "Lauren",
+    "relationship": "Friend",
+    "note": "",
+    "image": "",
+    "connections": [
+      "Mike Vanderputten"
+    ]
+  },
+  {
+    "name": "Miguel Alvarez",
+    "relationship": "Friend",
+    "note": "Dota",
+    "image": "miguel.png",
+    "connections": [
+      "Jeff Church"
+    ]
+  },
+  {
+    "name": "Tyler Schweizer",
+    "relationship": "Friend",
+    "note": "WoW",
+    "image": "tyler.png",
+    "connections": [
+      "Bryan Church"
+    ]
+  },
+  {
+    "name": "Zack Zapata",
+    "relationship": "Friend",
+    "note": "",
+    "image": "",
+    "connections": [
+      "Jeff Church"
+    ]
+  },
+  {
+    "name": "Brittany Zapata",
+    "relationship": "Friend",
+    "note": "",
+    "image": "",
+    "connections": [
+      "Zack Zapata"
+    ]
+  },
+  {
+    "name": "Richard Fermion",
+    "relationship": "Former 'Friend'",
+    "note": "",
+    "image": "",
+    "connections": [
+      "Bryan Church"
+    ]
+  },
+  {
+    "name": "Lena Fermion",
+    "relationship": "Former 'Friend'",
+    "note": "",
+    "image": "",
+    "connections": [
+      "Richard Fermion"
+    ]
+  },
+  {
+    "name": "Rebekah Rathbun",
+    "relationship": "Friend",
+    "note": "Married to Max",
+    "image": "beeku.png",
+    "connections": [
       "Nicki Slettevold"
+    ]
+  },
+  {
+    "name": "Thea",
+    "relationship": "Friend",
+    "note": "",
+    "image": "",
+    "connections": [
+      "Owen Ausen"
+    ]
+  },
+  {
+    "name": "Wayne Hubbard",
+    "relationship": "Friend",
+    "note": "",
+    "image": "hubbard.png",
+    "connections": [
+      "Jeff Church"
     ]
   }
 ]
