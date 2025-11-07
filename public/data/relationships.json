@@ -1,5 +1,23 @@
 [
   {
+    "name": "Jeff Church",
+    "relationship": "Self",
+    "note": "Me",
+    "image": "",
+    "connections": [
+      "Nicki Slettevold",
+      "Sarah Johnson",
+      "Mike Chen",
+      "Emily Rodriguez",
+      "David Martinez",
+      "Lisa Thompson",
+      "Tom Anderson",
+      "Brandon Foster",
+      "Kevin Patel",
+      "Chris Murphy"
+    ]
+  },
+  {
     "name": "Nicki Slettevold",
     "relationship": "Family",
     "note": "Cousin",

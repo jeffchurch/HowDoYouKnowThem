@@ -2,10 +2,11 @@ import { useState, useEffect, useRef } from 'react'
 import './RelationshipTree.css'
 import PersonCard from './PersonCard'
 
-const RelationshipTree = ({ people, centerPerson }) => {
+const RelationshipTree = ({ people }) => {
   const [positions, setPositions] = useState([])
   const containerRef = useRef(null)
   const [selectedPerson, setSelectedPerson] = useState(null)
+  const [zoom, setZoom] = useState(1)
 
   useEffect(() => {
     if (!people || people.length === 0) return
@@ -20,104 +21,77 @@ const RelationshipTree = ({ people, centerPerson }) => {
       const centerX = width / 2
       const centerY = height / 2
 
-      const baseRadius = Math.min(width, height) * 0.4
-      const secondaryRadius = baseRadius * 0.8 // Distance from primary nodes
+      const verticalSpacing = 200 // Vertical distance between levels
+      const horizontalSpacing = 180 // Horizontal spacing between nodes
 
-      // Separate people into those connected to center and those who aren't
-      const connectedToCenter = []
-      const notConnectedToCenter = []
-
-      people.forEach(person => {
-        if (person.connections && person.connections.includes(centerPerson)) {
-          connectedToCenter.push(person)
-        } else {
-          notConnectedToCenter.push(person)
-        }
-      })
-
+      // Build a top-down tree layout
+      if (people.length === 0) return []
+      
       const positions = []
       const positionMap = new Map()
-
-      // Position people connected to center in a circle
-      connectedToCenter.forEach((person, index) => {
-        const angle = (index / connectedToCenter.length) * 2 * Math.PI - Math.PI / 2
-        const x = centerX + baseRadius * Math.cos(angle)
-        const y = centerY + baseRadius * Math.sin(angle)
-
-        const pos = {
-          ...person,
-          x,
-          y,
-          angle
+      const levels = [] // Track people by level
+      
+      // Start with the first person at the top
+      const firstPerson = people[0]
+      levels[0] = [firstPerson]
+      
+      // Build levels based on connections
+      const visited = new Set([firstPerson.name])
+      let currentLevel = 0
+      
+      while (currentLevel < levels.length) {
+        const currentLevelPeople = levels[currentLevel]
+        const nextLevel = []
+        
+        currentLevelPeople.forEach(person => {
+          // Find all connections that haven't been visited
+          person.connections?.forEach(connName => {
+            const connectedPerson = people.find(p => p.name === connName)
+            if (connectedPerson && !visited.has(connName)) {
+              nextLevel.push(connectedPerson)
+              visited.add(connName)
+            }
+          })
+        })
+        
+        if (nextLevel.length > 0) {
+          levels[currentLevel + 1] = nextLevel
         }
-        positions.push(pos)
-        positionMap.set(person.name, pos)
-      })
-
-      // Position people not connected to center near their first connection
-      const positioned = new Set(connectedToCenter.map(p => p.name))
-      const queue = [...notConnectedToCenter]
-      let attempts = 0
-      const maxAttempts = queue.length * 3
-
-      while (queue.length > 0 && attempts < maxAttempts) {
-        attempts++
-        const person = queue.shift()
-
-        // Find first connection that's already positioned
-        const anchorConnection = person.connections?.find(conn => 
-          positionMap.has(conn) || conn === centerPerson
-        )
-
-        if (anchorConnection) {
-          let anchorX, anchorY
-
-          if (anchorConnection === centerPerson) {
-            anchorX = centerX
-            anchorY = centerY
-          } else {
-            const anchor = positionMap.get(anchorConnection)
-            anchorX = anchor.x
-            anchorY = anchor.y
-          }
-
-          // Count how many people are already positioned around this anchor
-          const siblingsAroundAnchor = positions.filter(p => 
-            p.connections?.includes(anchorConnection) && p.name !== person.name
-          ).length
-
-          // Position in a circle around the anchor
-          const angle = (siblingsAroundAnchor * (Math.PI * 2 / 6)) + Math.random() * 0.3
-          const x = anchorX + secondaryRadius * Math.cos(angle)
-          const y = anchorY + secondaryRadius * Math.sin(angle)
-
+        currentLevel++
+      }
+      
+      // Position nodes in each level
+      levels.forEach((levelPeople, levelIndex) => {
+        const levelWidth = (levelPeople.length - 1) * horizontalSpacing
+        const startX = centerX - levelWidth / 2
+        const y = 100 + levelIndex * verticalSpacing // Start from top with padding
+        
+        levelPeople.forEach((person, index) => {
+          const x = startX + index * horizontalSpacing
           const pos = {
             ...person,
             x,
             y,
-            angle
+            angle: 0
           }
           positions.push(pos)
           positionMap.set(person.name, pos)
-          positioned.add(person.name)
-        } else {
-          // No positioned connection yet, put back in queue
-          queue.push(person)
-        }
-      }
-
-      // If any people still aren't positioned (isolated nodes), place them in outer ring
-      queue.forEach((person, index) => {
-        const angle = (index / queue.length) * 2 * Math.PI
-        const x = centerX + (baseRadius * 1.5) * Math.cos(angle)
-        const y = centerY + (baseRadius * 1.5) * Math.sin(angle)
-
-        positions.push({
-          ...person,
-          x,
-          y,
-          angle
         })
+      })
+      
+      // Handle any unconnected nodes
+      people.forEach(person => {
+        if (!visited.has(person.name)) {
+          const x = centerX + (visited.size - people.length / 2) * horizontalSpacing
+          const y = 100 + levels.length * verticalSpacing
+          positions.push({
+            ...person,
+            x,
+            y,
+            angle: 0
+          })
+          positionMap.set(person.name, { x, y })
+        }
       })
 
       return positions
@@ -139,9 +113,60 @@ const RelationshipTree = ({ people, centerPerson }) => {
     setSelectedPerson(selectedPerson?.name === person.name ? null : person)
   }
 
+  const handleZoomIn = () => {
+    setZoom(prev => Math.min(prev + 0.2, 3))
+  }
+
+  const handleZoomOut = () => {
+    setZoom(prev => Math.max(prev - 0.2, 0.3))
+  }
+
+  const handleResetZoom = () => {
+    setZoom(1)
+  }
+
+  // Center the view on the first person when component loads
+  useEffect(() => {
+    if (positions.length > 0 && containerRef.current) {
+      // Use requestAnimationFrame to ensure DOM is fully rendered
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          const container = containerRef.current
+          const scrollableParent = container.parentElement // tree-container
+          if (!container || !scrollableParent) return
+          
+          // Get the viewport size from the scrollable parent
+          const viewportWidth = scrollableParent.clientWidth
+          const viewportHeight = scrollableParent.clientHeight
+          
+          // First person is positioned at 50% of the container's actual dimensions
+          // Use scrollWidth/scrollHeight to get the actual canvas size
+          const canvasWidth = container.scrollWidth
+          const canvasHeight = container.scrollHeight
+          const firstPersonX = canvasWidth / 2
+          const firstPersonY = canvasHeight / 2
+          
+          // Scroll to position first person near the top (family tree style)
+          const scrollLeft = firstPersonX - viewportWidth / 2
+          const scrollTop = Math.max(0, firstPersonY - 150) // Position 150px from top of viewport
+          
+          // Set scroll position directly (most reliable method)
+          scrollableParent.scrollLeft = scrollLeft
+          scrollableParent.scrollTop = scrollTop
+        })
+      }, 300)
+    }
+  }, [positions])
+
   return (
     <div className="relationship-tree" ref={containerRef}>
-      <svg className="connections-svg">
+      <svg 
+        className="connections-svg"
+        style={{
+          transform: `scale(${zoom})`,
+          transformOrigin: 'center center',
+        }}
+      >
         {positions.map((person, index) => {
           const container = containerRef.current
           if (!container) return null
@@ -153,21 +178,6 @@ const RelationshipTree = ({ people, centerPerson }) => {
           if (!person.connections || person.connections.length === 0) return null
 
           return person.connections.map((connectionName, connIndex) => {
-            // Check if connecting to center person
-            if (connectionName === centerPerson) {
-              return (
-                <line
-                  key={`line-${index}-${connIndex}`}
-                  x1={centerX}
-                  y1={centerY}
-                  x2={person.x}
-                  y2={person.y}
-                  className="connection-line"
-                  strokeWidth={selectedPerson?.name === person.name ? "3" : "2"}
-                />
-              )
-            }
-
             // Find the connected person in positions
             const connectedPerson = positions.find(p => p.name === connectionName)
             if (!connectedPerson) return null
@@ -193,30 +203,22 @@ const RelationshipTree = ({ people, centerPerson }) => {
         })}
       </svg>
 
-      {/* Center person (You) */}
       <div
-        className="person-node center-person"
+        className="tree-content"
         style={{
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%, -50%)'
+          transform: `scale(${zoom})`,
+          transformOrigin: 'center center',
         }}
       >
-        <div className="person-avatar center-avatar">
-          <span className="person-initial">J</span>
-        </div>
-        <div className="person-name">{centerPerson}</div>
+        {positions.map((person, index) => (
+          <PersonCard
+            key={index}
+            person={person}
+            isSelected={selectedPerson?.name === person.name}
+            onClick={() => handlePersonClick(person)}
+          />
+        ))}
       </div>
-
-      {/* Connected people */}
-      {positions.map((person, index) => (
-        <PersonCard
-          key={index}
-          person={person}
-          isSelected={selectedPerson?.name === person.name}
-          onClick={() => handlePersonClick(person)}
-        />
-      ))}
 
       {/* Info panel for selected person */}
       {selectedPerson && (
@@ -252,6 +254,19 @@ const RelationshipTree = ({ people, centerPerson }) => {
           )}
         </div>
       )}
+
+      {/* Zoom controls */}
+      <div className="zoom-controls">
+        <button className="zoom-button" onClick={handleZoomIn} title="Zoom In">
+          +
+        </button>
+        <button className="zoom-button" onClick={handleResetZoom} title="Reset Zoom">
+          ⟲
+        </button>
+        <button className="zoom-button" onClick={handleZoomOut} title="Zoom Out">
+          −
+        </button>
+      </div>
     </div>
   )
 }

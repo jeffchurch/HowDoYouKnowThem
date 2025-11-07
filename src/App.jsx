@@ -48,7 +48,7 @@ function App() {
         <h1>How Do You Know Them?</h1>
       </header>
       <div className="tree-container">
-        <RelationshipTree people={people} centerPerson="Jeff Church" />
+        <RelationshipTree people={people} />
       </div>
     </div>
   )
