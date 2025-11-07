@@ -182,6 +182,9 @@ const RelationshipTree = ({ people }) => {
             const connectedPerson = positions.find(p => p.name === connectionName)
             if (!connectedPerson) return null
 
+            // Only draw lines between different levels (parent-child), not same level (siblings)
+            if (person.y === connectedPerson.y) return null
+
             // Only draw each line once (from person with lower index to higher index)
             const connectedIndex = positions.findIndex(p => p.name === connectionName)
             if (connectedIndex < index) return null
