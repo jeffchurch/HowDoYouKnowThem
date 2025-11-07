@@ -16,54 +16,90 @@ const RelationshipTree = ({ people }) => {
       const container = containerRef.current
       if (!container) return []
 
-      const width = container.clientWidth
-      const height = container.clientHeight
-      const centerX = width / 2
-      const centerY = height / 2
-
       const verticalSpacing = 200 // Vertical distance between levels
       const horizontalSpacing = 180 // Horizontal spacing between nodes
 
-      // Build a top-down tree layout
+      // Build a hierarchical tree layout using breadth-first search
       if (people.length === 0) return []
       
       const positions = []
       const positionMap = new Map()
       const levels = [] // Track people by level
+      const nodeLevel = new Map() // Track which level each person belongs to
       
-      // Start with the first person at the top
-      const firstPerson = people[0]
-      levels[0] = [firstPerson]
+      // Build bidirectional connection map
+      // If A lists B as connection, B should also be connected to A
+      const connectionMap = new Map()
+      people.forEach(person => {
+        if (!connectionMap.has(person.name)) {
+          connectionMap.set(person.name, new Set())
+        }
+        person.connections?.forEach(connName => {
+          // Add forward connection (person -> connName)
+          connectionMap.get(person.name).add(connName)
+          // Add reverse connection (connName -> person)
+          if (!connectionMap.has(connName)) {
+            connectionMap.set(connName, new Set())
+          }
+          connectionMap.get(connName).add(person.name)
+        })
+      })
       
-      // Build levels based on connections
-      const visited = new Set([firstPerson.name])
-      let currentLevel = 0
+      // Start with the first person (root) at level 0
+      const rootPerson = people[0]
+      levels[0] = [rootPerson]
+      nodeLevel.set(rootPerson.name, 0)
       
-      while (currentLevel < levels.length) {
-        const currentLevelPeople = levels[currentLevel]
-        const nextLevel = []
+      // Build levels using breadth-first search
+      // Each level contains people who are exactly N connections away from root
+      let currentLevelIndex = 0
+      
+      while (currentLevelIndex < levels.length) {
+        const currentLevelPeople = levels[currentLevelIndex]
+        const nextLevelPeople = []
         
         currentLevelPeople.forEach(person => {
-          // Find all connections that haven't been visited
-          person.connections?.forEach(connName => {
+          // Find all connections (bidirectional) that haven't been assigned a level yet
+          const connections = connectionMap.get(person.name) || new Set()
+          
+          connections.forEach(connName => {
             const connectedPerson = people.find(p => p.name === connName)
-            if (connectedPerson && !visited.has(connName)) {
-              nextLevel.push(connectedPerson)
-              visited.add(connName)
+            
+            // Only add if not already assigned to a level
+            if (connectedPerson && !nodeLevel.has(connName)) {
+              nextLevelPeople.push(connectedPerson)
+              nodeLevel.set(connName, currentLevelIndex + 1)
             }
           })
         })
         
-        if (nextLevel.length > 0) {
-          levels[currentLevel + 1] = nextLevel
+        // Remove duplicates from next level (in case multiple people connect to same person)
+        const uniqueNextLevel = Array.from(new Set(nextLevelPeople.map(p => p.name)))
+          .map(name => people.find(p => p.name === name))
+        
+        if (uniqueNextLevel.length > 0) {
+          levels[currentLevelIndex + 1] = uniqueNextLevel
         }
-        currentLevel++
+        
+        currentLevelIndex++
       }
       
-      // Position nodes in each level
+      // Calculate the maximum width needed for any level
+      let maxLevelWidth = 0
+      levels.forEach(levelPeople => {
+        const levelWidth = (levelPeople.length - 1) * horizontalSpacing
+        if (levelWidth > maxLevelWidth) {
+          maxLevelWidth = levelWidth
+        }
+      })
+      
+      // Position nodes in each level, centered based on max width
+      const padding = 300 // Padding on each side
+      const baseX = padding + maxLevelWidth / 2
+      
       levels.forEach((levelPeople, levelIndex) => {
         const levelWidth = (levelPeople.length - 1) * horizontalSpacing
-        const startX = centerX - levelWidth / 2
+        const startX = baseX - levelWidth / 2
         const y = 100 + levelIndex * verticalSpacing // Start from top with padding
         
         levelPeople.forEach((person, index) => {
@@ -72,27 +108,37 @@ const RelationshipTree = ({ people }) => {
             ...person,
             x,
             y,
-            angle: 0
+            level: levelIndex // Store level for reference
           }
           positions.push(pos)
           positionMap.set(person.name, pos)
         })
       })
       
-      // Handle any unconnected nodes
+      // Handle any unconnected nodes (people not connected to the root at all)
+      const unconnectedNodes = []
       people.forEach(person => {
-        if (!visited.has(person.name)) {
-          const x = centerX + (visited.size - people.length / 2) * horizontalSpacing
-          const y = 100 + levels.length * verticalSpacing
+        if (!nodeLevel.has(person.name)) {
+          unconnectedNodes.push(person)
+        }
+      })
+      
+      if (unconnectedNodes.length > 0) {
+        const unconnectedY = 100 + levels.length * verticalSpacing
+        const unconnectedWidth = (unconnectedNodes.length - 1) * horizontalSpacing
+        const unconnectedStartX = baseX - unconnectedWidth / 2
+        
+        unconnectedNodes.forEach((person, index) => {
+          const x = unconnectedStartX + index * horizontalSpacing
           positions.push({
             ...person,
             x,
-            y,
-            angle: 0
+            y: unconnectedY,
+            level: levels.length
           })
-          positionMap.set(person.name, { x, y })
-        }
-      })
+          positionMap.set(person.name, { x, y: unconnectedY })
+        })
+      }
 
       return positions
     }
