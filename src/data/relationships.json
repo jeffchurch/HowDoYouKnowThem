@@ -229,7 +229,7 @@
     "name": "Richard Fermion",
     "relationship": "Former 'Friend'",
     "note": "",
-    "image": "",
+    "image": "richard.png",
     "connections": [
       "Bryan Church"
     ]
@@ -267,7 +267,7 @@
     "note": "",
     "image": "hubbard.png",
     "connections": [
-      "Jeff Church"
+      "Bryan Church"
     ]
   },
   {
@@ -325,7 +325,7 @@
     ]
   },
   {
-    "name": "Mason",
+    "name": "Mason Retel",
     "relationship": "Friend",
     "note": "",
     "image": "",
@@ -349,6 +349,15 @@
     "image": "kody.png",
     "connections": [
       "Jace Godfrey"
+    ]
+  },
+  {
+    "name": "Megan Lee",
+    "relationship": "Friend",
+    "note": "",
+    "image": "megan.png",
+    "connections": [
+      "Tyler Schweizer"
     ]
   }
 ]
