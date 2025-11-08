@@ -133,7 +133,7 @@ const RelationshipTree = ({ people }) => {
       })
       
       // Position nodes in each level, centered based on max width
-      const padding = 300 // Padding on each side
+      const padding = 50 // Padding on each side
       const baseX = padding + maxLevelWidth / 2
       
       levels.forEach((levelPeople, levelIndex) => {
